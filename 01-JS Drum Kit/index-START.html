@@ -58,9 +58,75 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  /* 在該視窗物件底下 加入keydown 事件的監聽者，能得知目前按下的key是對應到哪個keycode*/
+  /*
   window.addEventListener("keydown", function(e){
     console.log(e);
   })
+  */
+  /* 在該視窗物件底下 加入keydown 事件的監聽者，能得知目前按下的key是對應到哪個keycode
+     透過css selector 去選到對應keycode的 audio物件, 並且play*/
+  /*
+  window.addEventListener("keydown", function(e){
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    console.log(audio);
+    if(!audio) return; //stop the function from running all togeter
+    audio.currentTime = 0; // rewind(倒帶/回轉) to the start
+    audio.play();
+  })
+  */
+  /* 在該視窗物件底下 加入keydown 事件的監聽者，能得知目前按下的key是對應到哪個keycode
+     透過css selector 去選到對應keycode的 audio物件, 並且play
+     透過keyCode選到對應的div class=key的物件*/
+  /*
+  window.addEventListener("keydown", function(e){
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    console.log(audio);
+    if(!audio) return; //stop the function from running all togeter
+    audio.currentTime = 0; // rewind(倒帶/回轉) to the start
+    audio.play();
+    console.log(key);
+  })
+  */
+  
+  /* 在該視窗物件底下 加入keydown 事件的監聽者，能得知目前按下的key是對應到哪個keycode
+     透過css selector 去選到對應keycode的 audio物件, 並且play
+     透過keyCode選到對應的div class=key的物件*/
+  /*
+  window.addEventListener("keydown", function(e){
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    console.log(audio);
+    if(!audio) return; //stop the function from running all togeter
+    audio.currentTime = 0; // rewind(倒帶/回轉) to the start
+    audio.play();
+    key.classList.add('playing');
+  })
+  */
+
+  /* 在該視窗物件底下 加入keydown 事件的監聽者，能得知目前按下的key是對應到哪個keycode
+     透過css selector 去選到對應keycode的 audio物件, 並且play
+     透過keyCode選到對應的div class=key的物件*/
+  
+    window.addEventListener("keydown", function(e){
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    console.log(audio);
+    if(!audio) return; //stop the function from running all togeter
+    audio.currentTime = 0; // rewind(倒帶/回轉) to the start
+    audio.play();
+    key.classList.add('playing');
+  });
+
+  function removeTransition(e){
+    if(e.propertyName !== "transform") return;
+    console.log(e.propertyName);
+    console.log(this);
+    this.classList.remove('playing');
+  }
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener("transitionend", removeTransition));
 </script>
 
 
